@@ -66,3 +66,97 @@ The front-view male/female drawings in the application are original schematic il
   https://www.hubersuhner.com/en/shop/product-family/5107
 
 The product family is used only as an example of a phase/amplitude-stable microwave test assembly. It is not an endorsement or a universal recommendation.
+
+
+## V0.3 — SHF / KMCO adapter database
+
+Product configurator:
+https://www.shf-communication.com/products/rf-connectors-adapters-cables/rf-adapters/
+
+The V0.3 adapter finder imports a deliberately limited first product subset for 2.92 mm, 2.4 mm and 1.85 mm interfaces.
+
+### In-series adapters
+
+#### 2.92 mm / 2.92 mm
+
+Datasheet:
+https://www.shf-communication.com/wp-content/uploads/datasheet_kpc_in_series_292_292.pdf
+
+Family-level product specification used by the UI:
+
+- DC–40 GHz
+- insertion loss < 0.2 dB
+- SWR represented conservatively as ≤ 1.20 across the listed MF/MM/FF variants
+- nominal coupling torque 90 N-cm = 0.9 N·m
+- connect/disconnect life > 1,000 cycles
+- P/N variants: KPC292MF, KPC292FF, KPC292MM
+
+#### 2.4 mm / 2.4 mm
+
+Datasheet:
+https://www.shf-communication.com/wp-content/uploads/datasheet_kpc_in_series_240_240.pdf
+
+- DC–50 GHz
+- SWR < 1.25
+- insertion loss < 0.3 dB
+- nominal coupling torque 0.9 N·m
+- connect/disconnect life > 1,000 cycles
+- P/N variants: KPC240MF, KPC240FF, KPC240MM
+
+#### 1.85 mm / 1.85 mm
+
+Datasheet:
+https://www.shf-communication.com/wp-content/uploads/datasheet_kpc_in_series_185_185.pdf
+
+- DC–70 GHz
+- SWR < 1.3
+- insertion loss < 0.45 dB
+- nominal coupling torque 0.9 N·m
+- connect/disconnect life > 1,000 cycles
+- P/N variants: KPC185MF, KPC185FF, KPC185MM
+
+### Between-series adapters
+
+#### 2.92 mm / 1.85 mm
+
+Datasheet:
+https://www.shf-communication.com/wp-content/uploads/datasheet_kpc_between_series_292_185.pdf
+
+- DC–40 GHz
+- SWR < 1.3
+- insertion loss < 0.35 dB
+- nominal coupling torque 0.9 N·m
+- connect/disconnect life > 1,000 cycles
+- four gender variants: KPC292F185F, KPC292F185M, KPC292M185F, KPC292M185M
+
+#### 2.92 mm / 2.4 mm
+
+Datasheet:
+https://www.shf-communication.com/wp-content/uploads/datasheet_kpc_between_series_292_240.pdf
+
+- DC–40 GHz
+- SWR < 1.22
+- insertion loss < 0.25 dB
+- nominal coupling torque 0.9 N·m
+- connect/disconnect life > 1,000 cycles
+- four gender variants: KPC292F240F, KPC292F240M, KPC292M240F, KPC292M240M
+
+#### 2.4 mm / 1.85 mm
+
+Datasheet:
+https://www.shf-communication.com/wp-content/uploads/datasheet_kpc_between_series_240_185.pdf
+
+- DC–50 GHz
+- SWR < 1.25
+- insertion loss < 0.4 dB
+- nominal coupling torque 0.9 N·m
+- connect/disconnect life > 1,000 cycles
+- four gender variants: KPC240F185F, KPC240F185M, KPC240M185F, KPC240M185M
+
+### Interpretation rules
+
+- The database stores one physical adapter per unique P/N. Reversing the port order does not create a second product record.
+- Port gender and adapter-end gender are opposites at the mating interface.
+- A connector family's nominal maximum frequency is never used to override a lower adapter datasheet limit.
+- 2.4 mm and 1.85 mm are mechanically intermateable, but a dedicated adapter can still be useful for gender change, port protection, repeatability, or a controlled transition.
+- Product inclusion is a sourced example, not an endorsement.
