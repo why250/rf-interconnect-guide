@@ -16,6 +16,7 @@ The current version includes:
 - mechanical intermateability matrix
 - cable-class selection for general RF, VNA, production and fixed-fixture use
 - **real adapter finder based on port connector + gender + target frequency**
+- **frequency-aware connector-family recommendation with optional auto-select**
 - **21 sourced KMCO adapter variants** for 2.92 mm, 2.4 mm and 1.85 mm
 - in-series and between-series adapter coverage
 - concrete P/N, bandwidth, SWR, insertion-loss, torque and mating-life fields
@@ -32,6 +33,8 @@ The first adapter dataset intentionally focuses on the precision interfaces most
 - 2.92 mm / K ↔ 1.85 mm / V
 - 2.92 mm / K ↔ 2.4 mm
 - 2.4 mm ↔ 1.85 mm / V
+
+The UI can auto-select the lowest connector family that satisfies the requested frequency: ≤40 GHz → 2.92 mm, 40–50 GHz → 2.4 mm, and 50–70 GHz → 1.85 mm. Manually selecting a connector disables auto-select so fixed physical hardware is not silently changed.
 
 The UI accounts for **port gender**. A female port requires a male adapter end, and vice versa.
 
