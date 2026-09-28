@@ -11,14 +11,65 @@ import {
 
 const genderOptions: Gender[] = ['female', 'male']
 
+const recommendedInterfaceForFrequency = (
+  frequencyGHz: number,
+): PrecisionConnectorId => {
+  if (frequencyGHz <= 40) return '2.92'
+  if (frequencyGHz <= 50) return '2.4'
+  return '1.85'
+}
+
+const interfaceMaxGHz: Record<PrecisionConnectorId, number> = {
+  '2.92': 40,
+  '2.4': 50,
+  '1.85': 70,
+}
+
+const connectorLabel = (id: PrecisionConnectorId) =>
+  precisionConnectors.find((item) => item.id === id)?.label ?? id
+
 export default function AdapterFinder() {
   const [portAConnector, setPortAConnector] =
     useState<PrecisionConnectorId>('2.92')
   const [portAGender, setPortAGender] = useState<Gender>('female')
   const [portBConnector, setPortBConnector] =
-    useState<PrecisionConnectorId>('1.85')
+    useState<PrecisionConnectorId>('2.92')
   const [portBGender, setPortBGender] = useState<Gender>('female')
   const [frequencyGHz, setFrequencyGHz] = useState(40)
+  const [autoSelectInterface, setAutoSelectInterface] = useState(true)
+
+  const frequencyRecommendation =
+    recommendedInterfaceForFrequency(frequencyGHz)
+
+  const handleFrequencyChange = (value: number) => {
+    const nextFrequency = Math.max(0.1, Math.min(70, value || 0.1))
+    setFrequencyGHz(nextFrequency)
+
+    if (autoSelectInterface) {
+      const nextConnector = recommendedInterfaceForFrequency(nextFrequency)
+      setPortAConnector(nextConnector)
+      setPortBConnector(nextConnector)
+    }
+  }
+
+  const handleManualConnectorChange = (
+    port: 'A' | 'B',
+    connector: PrecisionConnectorId,
+  ) => {
+    setAutoSelectInterface(false)
+    if (port === 'A') setPortAConnector(connector)
+    else setPortBConnector(connector)
+  }
+
+  const applyFrequencyRecommendation = () => {
+    setPortAConnector(frequencyRecommendation)
+    setPortBConnector(frequencyRecommendation)
+    setAutoSelectInterface(true)
+  }
+
+  const selectedPortsSupportFrequency =
+    interfaceMaxGHz[portAConnector] >= frequencyGHz &&
+    interfaceMaxGHz[portBConnector] >= frequencyGHz
 
   const mechanicalDirect = directMatePossible(
     portAConnector,
@@ -65,10 +116,31 @@ export default function AdapterFinder() {
         <p className="kicker">3 · Real adapter finder</p>
         <h2 id="adapter-title">Find a concrete adapter by port and gender</h2>
         <p>
-          V0.3 starts with KMCO adapters listed by SHF for 2.92 mm, 2.4 mm and
-          1.85 mm. Port gender matters: the adapter end must be the opposite
-          gender of the port it mates with.
+          The target frequency can drive the connector-family recommendation.
+          Keep auto-select enabled for a new interconnect design; disable it by
+          manually choosing a connector when the physical hardware port is fixed.
         </p>
+      </div>
+
+      <div className="frequency-recommendation-bar">
+        <div>
+          <span className="step-number">Frequency-aware interface</span>
+          <strong>
+            {frequencyGHz} GHz → {connectorLabel(frequencyRecommendation)}
+          </strong>
+          <small>
+            Lowest connector family in the current database that covers the
+            requested frequency.
+          </small>
+        </div>
+        <label className="auto-select-toggle">
+          <input
+            type="checkbox"
+            checked={autoSelectInterface}
+            onChange={(e) => setAutoSelectInterface(e.target.checked)}
+          />
+          <span>Auto-select interface</span>
+        </label>
       </div>
 
       <div className="adapter-layout">
@@ -81,7 +153,10 @@ export default function AdapterFinder() {
                 <select
                   value={portAConnector}
                   onChange={(e) =>
-                    setPortAConnector(e.target.value as PrecisionConnectorId)
+                    handleManualConnectorChange(
+                      'A',
+                      e.target.value as PrecisionConnectorId,
+                    )
                   }
                 >
                   {precisionConnectors.map((item) => (
@@ -113,7 +188,10 @@ export default function AdapterFinder() {
                 <select
                   value={portBConnector}
                   onChange={(e) =>
-                    setPortBConnector(e.target.value as PrecisionConnectorId)
+                    handleManualConnectorChange(
+                      'B',
+                      e.target.value as PrecisionConnectorId,
+                    )
                   }
                 >
                   {precisionConnectors.map((item) => (
@@ -148,15 +226,42 @@ export default function AdapterFinder() {
                 max="70"
                 step="0.1"
                 value={frequencyGHz}
-                onChange={(e) =>
-                  setFrequencyGHz(
-                    Math.max(0.1, Math.min(70, Number(e.target.value) || 0.1)),
-                  )
-                }
+                onChange={(e) => handleFrequencyChange(Number(e.target.value))}
               />
               <span>GHz</span>
             </div>
           </label>
+
+          <div className="frequency-presets" aria-label="Frequency presets">
+            {[18, 26.5, 40, 50, 67].map((value) => (
+              <button
+                type="button"
+                key={value}
+                className={frequencyGHz === value ? 'chip active' : 'chip'}
+                onClick={() => handleFrequencyChange(value)}
+              >
+                {value} GHz
+              </button>
+            ))}
+          </div>
+
+          {!selectedPortsSupportFrequency && (
+            <div className="interface-upgrade-warning">
+              <div>
+                <strong>
+                  Selected connector family cannot support {frequencyGHz} GHz.
+                </strong>
+                <p>
+                  Recommended design interface: {connectorLabel(frequencyRecommendation)}.
+                  An adapter cannot recover bandwidth already lost at a lower-frequency
+                  physical port.
+                </p>
+              </div>
+              <button type="button" onClick={applyFrequencyRecommendation}>
+                Apply recommendation
+              </button>
+            </div>
+          )}
 
           <div className="adapter-gender-rule">
             <span>
@@ -169,7 +274,30 @@ export default function AdapterFinder() {
         </div>
 
         <div className="panel adapter-result" aria-live="polite">
-          {mechanicalDirect ? (
+          {!selectedPortsSupportFrequency ? (
+            <>
+              <p className="kicker">Connector-family bandwidth fails</p>
+              <h3>
+                Change the physical interface before selecting an adapter
+              </h3>
+              <p className="adapter-result-copy">
+                At {frequencyGHz} GHz the selected port family is already the
+                bottleneck. The recommended interface in the current scope is{' '}
+                {connectorLabel(frequencyRecommendation)}.
+              </p>
+              <div className="warning-box">
+                Do not use a lower-frequency connector followed by a higher-frequency
+                adapter as a way to claim the higher measurement bandwidth.
+              </div>
+              <button
+                type="button"
+                className="datasheet-button"
+                onClick={applyFrequencyRecommendation}
+              >
+                Switch both ports to {connectorLabel(frequencyRecommendation)}
+              </button>
+            </>
+          ) : mechanicalDirect ? (
             <>
               <p className="kicker">Mechanical direct-mate path exists</p>
               <h3>No adapter is required for geometry alone</h3>
@@ -264,8 +392,9 @@ export default function AdapterFinder() {
               <p className="kicker">No database match</p>
               <h3>This geometry is not covered yet</h3>
               <p className="adapter-result-copy">
-                V0.3 intentionally contains only the first precision-adapter
-                subset. The database will expand instead of guessing a product.
+                The current release intentionally contains only the first
+                precision-adapter subset. The database will expand instead of
+                guessing a product.
               </p>
             </>
           )}
