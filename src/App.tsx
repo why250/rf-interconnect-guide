@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import ConnectorIdentifier from './ConnectorIdentifier'
+import AdapterFinder from './AdapterFinder'
 import {
   cables,
   connectors,
@@ -56,7 +57,7 @@ function App() {
             sensible cable for the measurement you are trying to make.
           </p>
         </div>
-        <div className="hero-badge">V0.2 · visual identifier</div>
+        <div className="hero-badge">V0.3 · adapter finder</div>
       </header>
 
       <main>
@@ -193,9 +194,11 @@ function App() {
 
         <ConnectorIdentifier />
 
+        <AdapterFinder />
+
         <section className="section">
           <div className="section-heading">
-            <p className="kicker">3 · Connector reference photos</p>
+            <p className="kicker">4 · Connector reference photos</p>
             <h2>Compare real examples</h2>
             <p>
               Real examples are shown whenever the image source is traceable.
@@ -243,7 +246,7 @@ function App() {
 
         <section className="section">
           <div className="section-heading">
-            <p className="kicker">4 · Check mechanical compatibility</p>
+            <p className="kicker">5 · Check mechanical compatibility</p>
             <h2>Intermateability matrix</h2>
             <p>
               This matrix is deliberately mechanical-only. Electrical performance
@@ -276,7 +279,7 @@ function App() {
 
         <section className="section">
           <div className="section-heading">
-            <p className="kicker">5 · Choose the cable by measurement behavior</p>
+            <p className="kicker">6 · Choose the cable by measurement behavior</p>
             <h2>Cable guide</h2>
           </div>
           <div className="cable-grid">
@@ -307,9 +310,9 @@ function App() {
         <section className="source-section">
           <h2>Engineering baseline</h2>
           <p>
-            V0.2 uses manufacturer documentation as the controlling reference for
-            connector frequency, torque, intermateability and connector-care
-            warnings. Every numeric value should eventually point to an explicit
+            V0.3 uses manufacturer documentation as the controlling reference for
+            connector frequency, torque, intermateability, connector-care warnings,
+            and sourced adapter product specifications. Every numeric value should eventually point to an explicit
             source, and exact product datasheets override family-level guidance.
           </p>
           <div className="source-links">
@@ -328,6 +331,13 @@ function App() {
               Keysight SMA / precision-interface care ↗
             </a>
             <a
+              href="https://www.shf-communication.com/products/rf-connectors-adapters-cables/rf-adapters/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              SHF / KMCO RF adapter configurator ↗
+            </a>
+            <a
               href="https://www.hubersuhner.com/en/shop/product-family/5107"
               target="_blank"
               rel="noreferrer"
@@ -339,7 +349,7 @@ function App() {
       </main>
 
       <footer>
-        <span>RF Interconnect Guide · V0.2</span>
+        <span>RF Interconnect Guide · V0.3</span>
         <span>Always verify the exact component datasheet before connecting expensive RF hardware.</span>
       </footer>
     </div>
