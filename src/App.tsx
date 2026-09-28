@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import ConnectorIdentifier from './ConnectorIdentifier'
 import {
   cables,
   connectors,
@@ -55,7 +56,7 @@ function App() {
             sensible cable for the measurement you are trying to make.
           </p>
         </div>
-        <div className="hero-badge">V0.1 · engineering preview</div>
+        <div className="hero-badge">V0.2 · visual identifier</div>
       </header>
 
       <main>
@@ -190,10 +191,12 @@ function App() {
           </div>
         </section>
 
+        <ConnectorIdentifier />
+
         <section className="section">
           <div className="section-heading">
-            <p className="kicker">2 · Identify the connector</p>
-            <h2>Connector photo guide</h2>
+            <p className="kicker">3 · Connector reference photos</p>
+            <h2>Compare real examples</h2>
             <p>
               Real examples are shown whenever the image source is traceable.
               Vendor images stay externally hosted until redistribution rights are
@@ -240,7 +243,7 @@ function App() {
 
         <section className="section">
           <div className="section-heading">
-            <p className="kicker">3 · Check mechanical compatibility</p>
+            <p className="kicker">4 · Check mechanical compatibility</p>
             <h2>Intermateability matrix</h2>
             <p>
               This matrix is deliberately mechanical-only. Electrical performance
@@ -273,7 +276,7 @@ function App() {
 
         <section className="section">
           <div className="section-heading">
-            <p className="kicker">4 · Choose the cable by measurement behavior</p>
+            <p className="kicker">5 · Choose the cable by measurement behavior</p>
             <h2>Cable guide</h2>
           </div>
           <div className="cable-grid">
@@ -304,10 +307,10 @@ function App() {
         <section className="source-section">
           <h2>Engineering baseline</h2>
           <p>
-            V0.1 uses manufacturer documentation as the controlling reference for
-            connector frequency, torque and compatibility. Every numeric value in
-            the project should eventually point to an explicit source, and exact
-            product datasheets override family-level guidance.
+            V0.2 uses manufacturer documentation as the controlling reference for
+            connector frequency, torque, intermateability and connector-care
+            warnings. Every numeric value should eventually point to an explicit
+            source, and exact product datasheets override family-level guidance.
           </p>
           <div className="source-links">
             <a
@@ -316,6 +319,13 @@ function App() {
               rel="noreferrer"
             >
               Keysight connector care / connector table ↗
+            </a>
+            <a
+              href="https://helpfiles.keysight.com/scopes/FlexDCA-UG/Content/Topics/Connector-Care/connectors_sma.htm"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Keysight SMA / precision-interface care ↗
             </a>
             <a
               href="https://www.hubersuhner.com/en/shop/product-family/5107"
@@ -329,7 +339,7 @@ function App() {
       </main>
 
       <footer>
-        <span>RF Interconnect Guide · V0.1</span>
+        <span>RF Interconnect Guide · V0.2</span>
         <span>Always verify the exact component datasheet before connecting expensive RF hardware.</span>
       </footer>
     </div>
