@@ -1,6 +1,6 @@
 # Data sources
 
-This file records the engineering baseline used by the first prototype.
+This file records the engineering baseline used by the prototype.
 
 ## Connector family baseline
 
@@ -9,7 +9,7 @@ Primary reference:
 - Keysight, Electrical Connector Care:
   https://helpfiles.keysight.com/scopes/FlexDCA-UG/Content/Topics/Connector-Care/connector-elec-care.htm
 
-The V0.1 selector currently uses the following family-level baseline from that reference:
+Family-level values currently used:
 
 | Interface | Frequency baseline | Torque baseline | Mechanical mating group |
 |---|---:|---:|---|
@@ -20,6 +20,20 @@ The V0.1 selector currently uses the following family-level baseline from that r
 | 1.85 mm | ≤ 70 GHz | 0.57 N·m | 2.4 / 1.85 |
 
 These values are not universal ratings for every product. Exact instrument and component datasheets take precedence.
+
+## Visual identification and connector care
+
+Keysight SMA connector care:
+https://helpfiles.keysight.com/scopes/FlexDCA-UG/Content/Topics/Connector-Care/connectors_sma.htm
+
+Keysight 3.5 mm precision connector care:
+https://helpfiles.keysight.com/scopes/FlexDCA-UG/Content/Topics/Connector-Care/connectors_3_55.htm
+
+The V0.2 visual identifier deliberately avoids claiming that SMA, 3.5 mm and 2.92 mm can always be distinguished from a casual front-view photograph. They share a mating geometry but differ in construction and mechanical details.
+
+Keysight specifically warns that an excessively long SMA male center pin can damage the female contact fingers of a precision 3.5 mm interface. The site therefore treats SMA-to-precision mating as a connector-care event, not merely a compatibility checkbox.
+
+The front-view male/female drawings in the application are original schematic illustrations created for this project. They are intentionally labeled not to scale.
 
 ## Image sources
 

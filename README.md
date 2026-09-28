@@ -1,16 +1,20 @@
 # RF Interconnect Guide
 
-An interactive RF/microwave test interconnect selection guide for engineers.
+An interactive RF/microwave test interconnect selection and identification guide for engineers.
 
 Core question: I have an RF instrument and a DUT. What should I use to connect them safely and correctly?
 
-## V0.1
+## V0.2
 
-The first version includes:
+The current version includes:
 
 - interactive frequency / use-case / port selector
+- visual male / female connector identifier
+- three-step identification workflow: gender → mating family → exact interface verification
 - SMA, 3.5 mm, 2.92 mm, 2.4 mm and 1.85 mm connector guide
 - real connector example images with source and license metadata
+- warnings against identifying precision interfaces by thread appearance alone
+- SMA-to-precision-port damage warning
 - mechanical intermateability matrix
 - cable-class selection for general RF, VNA, production and fixed-fixture use
 - engineering warnings for bandwidth bottlenecks and precision-interface mating
@@ -30,7 +34,7 @@ After the first merge to main, enable Settings → Pages → Source: GitHub Acti
 
 ## Engineering scope
 
-V0.1 intentionally starts with the interfaces most common in RF/microwave bench testing:
+The first releases intentionally focus on:
 
 - SMA
 - 3.5 mm
@@ -40,11 +44,22 @@ V0.1 intentionally starts with the interfaces most common in RF/microwave bench 
 
 The project distinguishes:
 
+- visual identification
 - mechanical mating
 - electrical bandwidth
 - recommended measurement practice
 
 Those are not the same thing.
+
+## Identification rule
+
+The UI uses a conservative workflow:
+
+1. Determine male/female from the center contact.
+2. Determine the likely mating family.
+3. Verify the exact interface from markings, datasheets and precision metrology where necessary.
+
+SMA, 3.5 mm and 2.92 mm should not be distinguished from thread appearance alone.
 
 ## Data quality
 
@@ -58,9 +73,8 @@ Real images must have source, author/vendor, license or redistribution status, a
 
 ## Roadmap
 
-- male / female visual identification walkthrough
-- adapters and port savers
 - concrete cable assembly database with photos and datasheets
+- adapter / port-saver chain builder
 - insertion-loss estimation versus frequency and length
 - power handling / DC block / attenuator considerations
 - calibration kit and VNA workflow guidance

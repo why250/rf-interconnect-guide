@@ -222,6 +222,267 @@ input:focus, select:focus, button:focus-visible {
 .warning-box { background: var(--warning-soft); color: #ffe1a4; border: 1px solid #66501d; }
 .note-box { background: #102634; color: #bde4f3; border: 1px solid #244e61; }
 
+/* Visual identifier */
+.identifier-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.identifier-controls {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.identifier-controls h3,
+.identifier-photo-body h3 {
+  margin: 5px 0 0;
+  font-size: 1.28rem;
+}
+
+.identifier-help {
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 8px 0 0;
+  font-size: .9rem;
+}
+
+.step-number {
+  color: var(--accent);
+  font-size: .72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+.gender-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.gender-button {
+  min-height: 58px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #08131d;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 10px;
+}
+
+.gender-button.active {
+  background: var(--accent-soft);
+  color: #b4f7e4;
+  border-color: #2e6c5d;
+}
+
+.contact-symbol {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.pin-symbol::before {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 20px;
+  border-radius: 999px;
+  background: currentColor;
+  left: 7px;
+}
+
+.socket-symbol {
+  border: 3px solid currentColor;
+  border-radius: 50%;
+}
+
+.socket-symbol::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: #08131d;
+}
+
+.gender-button.active .socket-symbol::after { background: var(--accent-soft); }
+
+.diagram-card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #07121b;
+  padding: 8px;
+}
+
+.front-view { width: 100%; height: auto; display: block; }
+.diagram-shell { fill: #233442; stroke: #7e93a4; stroke-width: 3; }
+.diagram-thread-zone { fill: #0c1923; stroke: #9eb0be; stroke-width: 5; stroke-dasharray: 7 5; }
+.diagram-dielectric-zone { fill: #e2e8ec; stroke: #8498a8; stroke-width: 2; }
+.diagram-pin { fill: #d8af4f; stroke: #f6d77d; stroke-width: 3; }
+.diagram-socket { fill: #d8af4f; stroke: #f6d77d; stroke-width: 3; }
+.diagram-socket-hole { fill: #101820; }
+.diagram-leader { stroke: #9fb2c0; stroke-width: 2; }
+.diagram-label { fill: #d7e2eb; font-size: 13px; font-weight: 700; }
+.diagram-caption { fill: #708596; font-size: 12px; letter-spacing: .06em; }
+
+.identifier-connector-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.id-choice {
+  min-height: 58px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #08131d;
+  color: #d9e4ed;
+  text-align: left;
+  padding: 9px 11px;
+}
+
+.id-choice span { display: block; font-weight: 750; }
+.id-choice small { color: var(--muted); }
+.id-choice.active { border-color: #337866; background: var(--accent-soft); }
+.id-choice.active small { color: #90cdbd; }
+
+.identifier-result { min-width: 0; }
+
+.identifier-photo-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 20px;
+}
+
+.identifier-photo {
+  display: block;
+  min-height: 300px;
+  height: 360px;
+  background: #f3f5f6;
+}
+
+.identifier-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.identifier-photo-body { padding: 20px; }
+
+.id-result-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.id-result-title p { color: var(--muted); margin: 5px 0 0; }
+
+.family-badge {
+  display: grid;
+  place-items: center;
+  min-width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  border: 1px solid #2d6658;
+  color: #aaf2dd;
+  font-weight: 900;
+}
+
+.identity-facts {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr .8fr;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.identity-facts > div {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 11px;
+}
+
+.identity-facts span {
+  display: block;
+  color: var(--muted);
+  font-size: .72rem;
+  margin-bottom: 6px;
+}
+
+.identity-facts strong { font-size: .86rem; }
+
+.identification-warning,
+.precision-warning {
+  margin-top: 12px;
+  border-radius: 11px;
+  padding: 13px 14px;
+  font-size: .88rem;
+  line-height: 1.5;
+}
+
+.identification-warning {
+  background: #102634;
+  border: 1px solid #244e61;
+  color: #c0e4f1;
+}
+
+.precision-warning {
+  background: var(--warning-soft);
+  border: 1px solid #66501d;
+  color: #ffe2a7;
+}
+
+.identification-warning p,
+.precision-warning p { margin: 5px 0 0; }
+
+.decision-strip {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.decision-strip > div:not(.decision-arrow) {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #0a1520;
+  padding: 11px;
+  min-height: 78px;
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+}
+
+.decision-strip > div > span {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: #a9f6df;
+  font-size: .75rem;
+  font-weight: 900;
+}
+
+.decision-strip p { margin: 0; color: var(--muted); font-size: .77rem; line-height: 1.4; }
+.decision-strip strong { color: #dfe7f0; }
+.decision-arrow { color: #647b8c; }
+
+/* Connector cards */
 .connector-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -349,6 +610,7 @@ footer {
 
 @media (max-width: 980px) {
   .connector-grid, .cable-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .identifier-layout { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 760px) {
@@ -359,5 +621,10 @@ footer {
   .result-title-row { align-items: flex-start; }
   .connector-grid, .cable-grid { grid-template-columns: 1fr; }
   .image-frame { aspect-ratio: 1.5 / 1; }
+  .gender-toggle, .identifier-connector-buttons { grid-template-columns: 1fr; }
+  .identifier-photo { height: 280px; min-height: 240px; }
+  .identity-facts { grid-template-columns: 1fr; }
+  .decision-strip { grid-template-columns: 1fr; }
+  .decision-arrow { display: none; }
   footer { display: grid; }
 }
